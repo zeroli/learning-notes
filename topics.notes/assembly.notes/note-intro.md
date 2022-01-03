@@ -54,6 +54,7 @@ for_code():
   popq %rbp
   ret
 ```
+> while-loop and for-loop has no much difference, for-loop will use one temporary var to iterate
 
 if/else
 ====
@@ -128,3 +129,4 @@ switch_code():
   popq %rbp
   ret
 ```
+> looks like switch is more effcient than if/else, since it is using register %eax to do comparision, instead of direct memory access
