@@ -178,3 +178,70 @@ void foo(){
     SafeDivide<std::complex<float>>::Do({1.f, 2.f}, {1.f, -2.f});
 }
 ```
+当你觉得需要写 enable_if 的时候，首先要考虑到以下可能性：
+- 重载（对模板函数）
+- 偏特化（对模板类而言）
+- 虚函数
+
+* Expression SFINAE (Substitution Failure Is Not An Error)
+```c++
+struct Counter {
+    void increase() {
+        // Implements
+    }
+};
+
+template <typename T>
+void inc_counter(T& intTypeCounter, std::decay_t<decltype(++intTypeCounter)>* = nullptr) {
+    ++intTypeCounter;
+}
+
+template <typename T>
+void inc_counter(T& counterObj, std::decay_t<decltype(counterObj.increase())>* = nullptr) {
+    counterObj.increase();
+}
+
+void doSomething() {
+    Counter cntObj;
+    uint32_t cntUI32;
+
+    // blah blah blah
+    inc_counter(cntObj);
+    inc_counter(cntUI32);
+}
+```
+Expression SFINAE是C++才引入进来的，Type SFINAE在C++11之前就存在；
+
+```c++
+struct ICounter {};
+struct Counter: public ICounter {
+    void increase() {
+        // impl
+    }
+};
+
+template <typename T> void inc_counter(
+    T& counterObj,
+    typename std::enable_if<
+        std::is_base_of<ICounter, T>::value
+    >::type* = nullptr ){
+    counterObj.increase();
+}
+
+template <typename T> void inc_counter(
+    T& counterInt,
+    typename std::enable_if<
+        std::is_integral<T>::value
+    >::type* = nullptr ){
+    ++counterInt;
+}
+
+void doSomething() {
+    Counter cntObj;
+    uint32_t cntUI32;
+
+    // blah blah blah
+    inc_counter(cntObj); // OK!
+    inc_counter(cntUI32); // OK!
+}
+```
