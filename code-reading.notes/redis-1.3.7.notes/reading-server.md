@@ -1,7 +1,7 @@
 # 这个文档是讨论redis server如何工作的。
 ----------------
 **file: redis.c**
-
+![](images/2022-02-15-05-57-50.png)
 直接贴上`main`函数代码：
 ```c
 int main(int argc, char **argv) {
@@ -92,7 +92,7 @@ static void initServerConfig() {
 
 * 初始化服务器：`initServer`
 这个函数主要是对`redisServer`数据结构进一步初始化，前面的初始化都是些配置参数，这次是重要的数据结构，譬如客户端连接对象维护列表，replication的slaves维护列表，事件循环引擎，服务器socket连接对象，等等。
-```c
+```c++
 static void initServer() {
     int j;
 
@@ -160,7 +160,7 @@ static void initServer() {
 ```
 
 * 读取AOF文件: `loadAppendOnlyFile`
-```c
+```c++
         int argc, j;
         unsigned long len;
         robj **argv;
@@ -210,7 +210,7 @@ myvalue
 第一个会是命令`argv[0]->ptr`字符串
 
 装载AOF文件时，会创建一个faked client，假装有一个client在请求服务器执行那些命令。
-```c
+```c++
 /* Run the command in the context of a fake client */
         fakeClient->argc = argc;
         fakeClient->argv = argv;
@@ -226,7 +226,7 @@ myvalue
 
 * 读取redis DB： `rdbLoad`
 rdb是一个二进制文件，里面存储着snapshot of redis dataset in memory。redis是一个key-value（键值对) in memory服务器，故dump shapshot就会是key-value配对的数据文件。
-```
+```c++
     fp = fopen(filename,"r");
     if (!fp) return REDIS_ERR;
     if (fread(buf,9,1,fp) == 0) goto eoferr;
@@ -241,7 +241,7 @@ rdb是一个二进制文件，里面存储着snapshot of redis dataset in memory
 ```
 rdb文件以`REDIS`字符串作为文件签名，接着是version整型数字.
 然后就是type + key-value的二进制数据，一个接着一个。
-```c
+```c++
     while(1) {
         robj *o;
 
@@ -275,10 +275,10 @@ rdb文件以`REDIS`字符串作为文件签名，接着是version整型数字.
 上述代码对expire time和db index数据有特别的type。
 整个数据文件以`REDIS_EOF`类型作为文件结束符。
 
-redis key-value中的key永远是字符串，所以它会先load字符串对象，然后是值对象，值对象会有很多中类型。装载它们之后，就会把它们添加到当前服务器的dict对象中。
+redis key-value中的key永远是字符串，所以它会先load字符串对象，然后是值对象，值对象会有很多种类型。装载它们之后，就会把它们添加到当前服务器的dict对象中。
 
 装载类型函数，只会判断一个字节信息:
-```
+```c++
 static int rdbLoadType(FILE *fp) {
     unsigned char type;
     if (fread(&type,1,1,fp) == 0) return -1;
@@ -289,7 +289,7 @@ static int rdbLoadType(FILE *fp) {
 装载字符串类型数据：`rdbLoadStringObject`
 1. 首先装载字符串长度，同时判断长度信息是否进行了特别编码
 2. 根据编码方式和长度信息，进行不同的编码方法的字符串装载
-```c
+```c++
 static robj *rdbLoadStringObject(FILE*fp) {
     int isencoded;
     uint32_t len;
@@ -319,7 +319,7 @@ static robj *rdbLoadStringObject(FILE*fp) {
 }
 ```
 关于字符串长度编码信息定义如下：
-```c
+```c++
 /* Defines related to the dump file format. To store 32 bits lengths for short
  * keys requires a lot of space, so we check the most significant 2 bits of
  * the first byte to interpreter the length:
@@ -348,7 +348,7 @@ static robj *rdbLoadStringObject(FILE*fp) {
 #define REDIS_RDB_ENC_LZF 3         /* string compressed with FASTLZ */
 ```
 具体解析代码如下:
-```c
+```c++
 /* Load an encoded length from the DB, see the REDIS_RDB_* defines on the top
  * of this file for a description of how this are stored on disk.
  *
@@ -384,7 +384,7 @@ static uint32_t rdbLoadLen(FILE *fp, int *isencoded) {
 如果最终获取了字符串长度信息，就会创建一个同等长度字符串sds，读取字符串数据到`sds`中，将字符串`sds`包装成一个rdsObject。
 字符串有可能会编码保存为一个整型进行存储，如果它其实代表一个整数的话，这样可以节省空间，譬如‘123456‘(6bytes)，可以保存为一个整型数据，就只需要4bytes存储空间。
 `rdbLoadIntegerObject`
-```c
+```c++
 static robj *rdbLoadIntegerObject(FILE *fp, int enctype) {
     unsigned char enc[4];
     long long val;

@@ -21,7 +21,7 @@
 > Starting from version 1.1 Redis is also able to encode in a special way strings that are actually just numbers. Instead to save the string as an array of characters Redis will save the integer value in order to use less memory. With many datasets this can reduce the memory usage of about 30% compared to Redis 1.0.
 
 * sds结构体定义如下：
-```c
+```c++
 typedef char *sds;
 
 struct sdshdr {
@@ -34,7 +34,7 @@ struct sdshdr {
 
 接下来我们看下它的一些API函数:
 `sds sdsnew(const char* init, size_t initlen);`
-```c
+```c++
 sds sdsnewlen(const void *init, size_t initlen) {
     struct sdshdr *sh;
 
@@ -62,7 +62,7 @@ sds sdsnewlen(const void *init, size_t initlen) {
 - 返回`sh->buf`作为`sds`
 
 * sdslen
-```c
+```c++
 size_t sdslen(const sds s) {
     struct sdshdr *sh = (void*) (s-(sizeof(struct sdshdr)));
     return sh->len;
@@ -72,7 +72,7 @@ size_t sdslen(const sds s) {
 
 
 当sds空间不够时，需要resize，它的策略就是简单double一下：
-```c
+```c++
 static sds sdsMakeRoomFor(sds s, size_t addlen) {
     struct sdshdr *sh, *newsh;
     size_t free = sdsavail(s);
@@ -94,7 +94,7 @@ static sds sdsMakeRoomFor(sds s, size_t addlen) {
 }
 ```
 上面这个函数是静态函数，被很多API调用，譬如`sdscatlen`函数，concatenate另外一个字符串:
-```c
+```c++
 sds sdscatlen(sds s, void *t, size_t len) {
     struct sdshdr *sh;
     size_t curlen = sdslen(s);
@@ -111,7 +111,7 @@ sds sdscatlen(sds s, void *t, size_t len) {
 ```
 
 concatenate还支持concatenate一个要格式化的字符串：
-```c
+```c++
 sds sdscatprintf(sds s, const char *fmt, ...) {
     va_list ap;
     char *buf, *t;
@@ -136,3 +136,4 @@ sds sdscatprintf(sds s, const char *fmt, ...) {
 }
 ```
 以上这种方法比较有效率，有可能要格式化的字符串比较短，这样的方式就可以一次性成功。
+==> 但是其实可以声明一个栈上的数组作为开始的buf，如果格式化的字符串可以放入那个buf，就可以不用malloc了。这样可以减少一次堆上内存分配。

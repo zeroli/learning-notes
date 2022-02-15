@@ -17,7 +17,7 @@ In other words, you can look at Redis as a data structures server. A Redis user 
 
 ## file: redis-cli.c
 这是redis的客户端代码，main函数:
-```c
+```c++
 int  main(int  argc, char  **argv) {
 	int  firstarg;
 	char  **argvcopy;
@@ -52,7 +52,7 @@ int  main(int  argc, char  **argv) {
 ```
 
 * config结构是这样定义的：
-```c
+```c++
 static struct config {
     char *hostip;  // 主机地址和端口
     int hostport;
@@ -63,7 +63,7 @@ static struct config {
 } config;
 ```
 * redisCommand结构是这样定义的：
-```c
+```c++
 struct redisCommand {
     char *name;  // 命令的名字
     int arity;  // ????? (TODO)
@@ -72,7 +72,7 @@ struct redisCommand {
 ```
 
 * lookupCommand: 根据名字从lookup table `cmdTable`里面查找command
-```c
+```c++
 static struct redisCommand *lookupCommand(char *name) {
     int j = 0;
     while(cmdTable[j].name != NULL) {
@@ -85,7 +85,7 @@ static struct redisCommand *lookupCommand(char *name) {
 ```
 * 命令lookup table：`cmdTable`
 静态初始化一个redisCommand结构体数组： 名字，arity，和flags
-```
+```c++
 static struct redisCommand cmdTable[] = {
     {"auth",2,REDIS_CMD_INLINE},
     {"get",2,REDIS_CMD_INLINE},
@@ -99,7 +99,7 @@ static struct redisCommand cmdTable[] = {
 };
 ```
 * cliSendCommand，客户端发送命令给服务器
-```c
+```c++
 static int cliSendCommand(int argc, char **argv) {
     struct redisCommand *rc = lookupCommand(argv[0]);
     int fd, j, retval = 0;
@@ -171,7 +171,7 @@ static int cliSendCommand(int argc, char **argv) {
 
 * 选择db: **selectDB**
 通过发送一个命令给服务器：
-```c
+```c++
 static int selectDb(int fd) {
     int retval;
     sds cmd;  // redis自己包装的string结构
@@ -194,7 +194,7 @@ static int selectDb(int fd) {
 ```
 
 * 客户端连接服务器：**cliConnect**
-```c
+```c++
 static int cliConnect(void) {
     char err[ANET_ERR_LEN];
     static int fd = ANET_ERR;
