@@ -21,3 +21,5 @@
 - mimalloc: https://github.com/microsoft/mimalloc.git
 - tinyvm: https://github.com/jakogut/tinyvm.git
 - loki:
+- libcuckoo: https://github.com/efficient/libcuckoo.git
+- musl: https://github.com/bminor/musl.git (lightweight c runtime library)
