@@ -2,7 +2,7 @@
 
 file: eigen\unsupported\Eigen\CXX11\ThreadPool
 
-定义了2中thread pool的实现方式：
+定义了2种thread pool的实现方式：
 * `NonBlockingThreadPool` （默认的，没有EIGEN_USE_SIMPLE_THREAD_POOL编译宏时）
 * `SimpleThreadPool`
 2个类是子类，实现了接口类`ThreadPoolInterface`的几个接口函数：
@@ -36,7 +36,7 @@ struct Task {
 ===
 file：unsupported\Eigen\CXX11\src\ThreadPool\SimpleThreadPool.h
 这个简易版本的thread pool基于task的`FIFO`机制来执行task，因此里面会有一个centralized的queue来保存所有的task，线程池里的线程从其中获取task执行。
-有一个特别指出就是它提供了`waiters`列表为维护有多少等待的线程，每次一旦有task需要执行，都是显式的让最后一个thread waiter来执行这个新的task。
+有一个特别的地方就是它提供了`waiters`列表来维护有多少等待的线程，每次一旦有task需要执行，都是显式的让最后一个thread waiter来执行这个新的task。
 ```c++
 struct Waiter {
     std::condition_variable cv;
@@ -46,6 +46,55 @@ struct Waiter {
 ```
 而不是直接broadcast，让所有的睡眠的线程苏醒，然后其中一个线程获取锁，然后从queue中获取task执行。
 这样的设计，应该是考虑到性能问题，再者想让后等待的线程先执行task，实现Last-In-First-Run的效果。
+```c++
+  void Schedule(std::function<void()> fn) final {
+    Task t = env_.CreateTask(std::move(fn));
+    std::unique_lock<std::mutex> l(mu_);
+    if (waiters_.empty()) {
+      pending_.push_back(std::move(t));
+    } else {
+      Waiter* w = waiters_.back();
+      waiters_.pop_back();
+      w->ready = true;
+      w->task = std::move(t);
+      w->cv.notify_one();
+    }
+  }
+
+  void WorkerLoop(int thread_id) {
+    std::unique_lock<std::mutex> l(mu_);
+    PerThread* pt = GetPerThread();
+    pt->pool = this;
+    pt->thread_id = thread_id;
+    Waiter w;
+    Task t;
+    while (!exiting_) {
+      if (pending_.empty()) {
+        // Wait for work to be assigned to me
+        w.ready = false;
+        waiters_.push_back(&w);
+        while (!w.ready) {
+          w.cv.wait(l);
+        }
+        t = w.task;
+        w.task.f = nullptr;
+      } else {
+        // Pick up pending work
+        t = std::move(pending_.front());
+        pending_.pop_front();
+        if (pending_.empty()) {
+          empty_.notify_all();
+        }
+      }
+      if (t.f) {
+        mu_.unlock();
+        env_.ExecuteTask(t);
+        t.f = nullptr;
+        mu_.lock();
+      }
+    }
+  }
+```
 
 `NonBlockingThreadPool`
 ===
