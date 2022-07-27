@@ -8,14 +8,19 @@
 - Mathematics for Computer Science, by Eric Lehman, F Thomson Leighton, Albert R Meyer
 - Hands-On Mathematics for Deep Learning, by Jay Dawani
 - Foundation Mathematics for Computer Science - A Visual Approach,  by John Vince  ==[In progress]==
+- 线性代数(第9版), by Steven J, Leon ==[in progress]==
 
 C/C++
 ===
 - More C++ Idioms
+- C++模板元编程, by David Abrahams, Aleksey Gurtovoy ==[in progress]==
+- Exceptional c++中文版, by Herb Sutter ==[Done]==
+- C++ concurrency in action, 2nd  ==[in progress]==
 
 
 JAVA
 ===
+- Java并发编程实战, by Brian Goetz, etc ==[in progress]==
 
 Javascript
 ===
@@ -43,10 +48,11 @@ Javascript
 - Writing Compilers and interpreters - A software engineering approach, by Ronald Mak ==[in progress]==
 - 自制编译器, by 青木峰郎
 - 自制编程语言, by 前桥和弥
+- 两周自制脚本语言, by 千叶滋 ==[in progress]==
 - 编译器构造(crafting a compiler), by Charles N. Fischer, Ronald K. cytron
 - 编译器设计(Engineering a compiler), by Keith D. Cooper, Linda Torczon
 - 编译原理及实践, Compiler Construction - Principle and Practice, by Kenneth C. Louden
-- 可变目标的C编译器 - 设计与实现, by Christopher W. Fraser, David R. Hanson
+- 可变目标的C编译器 - 设计与实现, by Christopher W. Fraser, David R. Hanson ==[in progress]==
 - 现代编译原理-C语言描述,  by Andrew W. Appel
 - Introduction to Compilers and Language Design by Prof. Douglas Thain ==[in progress]==
 - Build you own programming language - A programmer's guide to designing compilers, interpreters, and DSL for solving modern computing programs, by Clinton L. Jeffery
@@ -55,9 +61,11 @@ Javascript
 
 操作系统
 ===
-- xv6 中文文档
+- xv6 中文文档 ==[Done]==
 - 操作系统：设计与实现(上), by Andrew S. Tanenbaum
-
+- Linux内核源代码情景分析, by 毛德操  ==[in progress]==
+- Linux内核完全剖析-基于0.12内核, by 赵炯 ==[in progress]==
+- 你管这破玩意叫操作系统(linux-0.11) ==[Done]==
 
 系统编程
 ===

@@ -1,5 +1,9 @@
 # CS Study
 
+数学
+===
+- 参考书目
+
 计算机组成原理
 ===
 - 参考书目
@@ -61,19 +65,51 @@
 - 参考书目
   - 高性能MySQL
   - MySQL是怎么运行的 - 从根儿上理解MySQL
+- 开源项目
+  - leveldb
+  - redis
+
 
 C/C++
 ===
 - 参考书目
+- 开源项目
+  - SGI-STL
+  - libstdc++-v3
+  - protobuf
 
 Java
 ===
 - 参考书目
-
+  - Java编程思想（第4版）
+  - 揭秘Java虚拟机 - JVM设计原理与实现
+  - 深入解析Java编译器 - 源码剖析与实例详解
+  - 深入剖析Java虚拟机 - 源码剖析与实例详解
+  - 深入理解Java虚拟机 - JVM高级特性与最佳实践 （第3版）
+  -
 Python
 ===
 - 参考书目
+  - 流畅的Python
+  - Python入门与实践
+
 
 Go
+===
+- 参考书目
+
+Javascript
+===
+- 参考书目
+
+系统编程
+===
+- 参考书目
+- 开源项目
+  - libevent
+  - libuv
+  - memcached
+  -
+网络编程
 ===
 - 参考书目
