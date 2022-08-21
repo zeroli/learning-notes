@@ -36,7 +36,7 @@
 | oneDNN | | |
 | abseil-cpp | | |
 | sgi-stl | | |
-| redis-1.3.7 | | |
+| redis-1.3.7 | | **==IN PROGRESS==** |
 | asio | | |
 | hotspot-jdk6 | | |
 | sogo.workflow | | |
@@ -53,7 +53,7 @@
 | nginx  | | |
 | concurrentcpp | | |
 | caffe | ML library |  |
-| leveldb | | |
+| leveldb | | **==IN PROGRESS==** |
 | zeromq.libzmq | | |
 | libstd++.v3 | | |
 | tinyexpr | | |
@@ -74,13 +74,13 @@
 | platform-bionic | | |
 | thrust | | **TODO**|
 | jemalloc | | |
-| memcached | | |
+| memcached | K-V in-memory 缓存| DONE |
 | gcc-1.42 | | |
 | msgpack-c | | |
 | xv6 | | |
 | luabind | | |
 | luabridge | | |
-| mysql | | |
+| mysql | | 学习mysql-5.0.96|
 | v8-0.4.9.3 | | |
 | v8-1.0.3.6 | | |
 | Android | | |
@@ -101,3 +101,35 @@
 | AliSQL | | |
 | sqlite-1.0 | | |
 | sqlite-2.0 | | |
+| ceph | | **** |
+| nfs | | **** |
+| cgdb | | **** |
+| tmux | | *** |
+
+## 分布式系统学习
+| 分布式系统 | 开源软件 | 描述 |
+| --- | --- | --- |
+| 分布式文件系统 | google file system (GFS) | |
+| -- | Hadoop file system (HFS) | GFS的开源java实现 |
+| -- | Taobao file system (TFS) | C++实现 |
+| -- | FastDFS | C实现 |
+| -- | GlusteFS | |
+| -- | Oceanbase | Taobao的C++实现 |
+| 分布式对象存储系统 | | |
+| -- | minIO | Go实现，兼容Amazon S3存储系统 |
+| -- | | |
+| 分布式表格系统 | google Big Table | |
+| -- | HBase | big table开源Java实现 |
+| -- | Hypertable | big table开源C++实现 |
+| 分布式K-V存储系统 | | |
+| -- | Taobao Tair | C++实现 |
+| -- | Redis cluster | C实现 |
+| -- | dragonflyDB | C++实现，兼容memcached/redis, in-memory cache |
+| -- | KeyDB | 支持多线程的Redis fork |
+| 分布式数据库 | DynamoDB | |
+| -- | Cassandra | 开源Java版本的实现 |
+| -- | ScyllaDB | C++实现 |
+| -- | Project Voldemort | Java |
+| 数据库 | Mysql | |
+| -- | rethinkDB | |
+| -- | berkeleyDB | |
