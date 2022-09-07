@@ -36,7 +36,6 @@
 | oneDNN | | |
 | abseil-cpp | | |
 | sgi-stl | | |
-| redis-1.3.7 | | **==IN PROGRESS==** |
 | asio | | |
 | hotspot-jdk6 | | |
 | sogo.workflow | | |
@@ -54,16 +53,22 @@
 | concurrentcpp | | |
 | caffe | ML library |  |
 | leveldb | | **==IN PROGRESS==** |
+| rocksdb | | | 
 | zeromq.libzmq | | |
 | libstd++.v3 | | |
 | tinyexpr | | |
-| libevent | | |
+| libevent | | **==IN PROGRESS==** |
 | libuv | | |
 | libev | | |
 | subc | | |
+| redis-1.3.7 | | **==DONE==** |
 | redis-3.0 | | |
 | glibc-2.23 | | |
 | linux-0.12 | | |
+| linux-2.4 | | |
+| linux-2.6.x | | |
+| sqlite-1.0 | | **==IN PROGRESS==** |
+| sqlite-3.0 | | |
 | sqlite | | |
 | grpc | | |
 | cmockery | | |
@@ -99,8 +104,6 @@
 | googletest | | |
 | clang | | |
 | AliSQL | | |
-| sqlite-1.0 | | |
-| sqlite-2.0 | | |
 | ceph | | **** |
 | nfs | | **** |
 | cgdb | | **** |
@@ -113,7 +116,7 @@
 | -- | Hadoop file system (HFS) | GFS的开源java实现 |
 | -- | Taobao file system (TFS) | C++实现 |
 | -- | FastDFS | C实现 |
-| -- | GlusteFS | |
+| -- | GlusteFS | C实现, Network file system |
 | -- | Oceanbase | Taobao的C++实现 |
 | 分布式对象存储系统 | | |
 | -- | minIO | Go实现，兼容Amazon S3存储系统 |
