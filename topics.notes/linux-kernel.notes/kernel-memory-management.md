@@ -1,0 +1,114 @@
+- 小内存分配, 例如分配 task_struct 对象
+    - 会调用 kmem_cache_alloc_node 函数, 从 task_struct 缓存区域 task_struct_cachep(在系统初始化时, 由 kmem_cache_create 创建) 分配一块内存
+    - 使用 task_struct 完毕后, 调用 kmem_cache_free 回收到缓存池中
+    - struct kmem_cache 用于表示缓存区信息, 缓存区即分配连续几个页的大块内存, 再切成小内存
+    - 小内存即缓存区的每一项, 都由对象和指向下一项空闲小内存的指针组成(随机插入/删除+快速查找空闲)
+    - struct kmem_cache 中三个 kmem_cache_order_objects 表示不同的需要分配的内存块大小的阶数和对象数
+    - 分配缓存的小内存块由两个路径 fast path 和 slow path , 分别对应 struct kmem_cache 中的 kmem_cache_cpu 和 kmem_cache_node
+    - 分配时先从 kmem_cache_cpu 分配, 若其无空闲, 再从 kmem_cache_node 分配, 还没有就从伙伴系统申请新内存块
+    - struct kmem_cache_cpu 中
+        - page 指向大内存块的第一个页
+        - freelist 指向大内存块中第一个空闲项
+        - partial 指向另一个大内存块的第一个页, 但该内存块有部分已分配出去, 当 page 满后, 在 partial 中找
+    - struct kmem_cache_node
+        - 也有 partial, 是一个链表, 存放部分空闲的多个大内存块, 若 kmem_cacche_cpu 中的 partial 也无空闲, 则在这找
+    - 分配过程
+        - kmem_cache_alloc_node->slab_alloc_node
+        - 快速通道, 取出 kmem_cache_cpu 的 freelist , 若有空闲直接返回
+        - 普通通道, 若 freelist 无空闲, 调用 `__slab_alloc`
+        - `__slab_alloc` 会重新查看 freelist, 若还不满足, 查看 kmem_cache_cpu 的 partial 
+        - 若 partial 不为空, 用其替换 page, 并重新检查是否有空闲
+        - 若还是无空闲, 调用 new_slab_objects
+        - new_slab_objects 根据节点 id 找到对应 kmem_cache_node , 调用 get_partial_node
+        - 首先从 kmem_cache_node 的 partial 链表拿下一大块内存, 替换 kmem_cache_cpu 的 page, 再取一块替换 kmem_cache_cpu 的 partial
+        - 若 kmem_cache_node 也没有空闲, 则在 new_slab_objects 中调用 new_slab->allocate_slab->alloc_slab_page 根据某个 kmem_cache_order_objects 设置申请大块内存
+- 页面换出
+    - 触发换出: 
+    - 1) 分配内存时发现没有空闲; 调用 `get_page_from_freelist->node_reclaim->__node_reclaim->shrink_node`
+    - 2) 内存管理主动换出, 由内核线程 kswapd 实现
+    - kswapd 在内存不紧张时休眠, 在内存紧张时检测内存 调用 balance_pgdat->kswapd_shrink_node->shrink_node
+    - 页面都挂在 lru 链表中, 页面有两种类型: 匿名页; 文件内存映射页
+    - 每一类有两个列表: active 和 inactive 列表
+    - 要换出时, 从 inactive 列表中找到最不活跃的页换出
+    - 更新列表, shrink_list 先缩减 active 列表, 再缩减不活跃列表
+    - 缩减不活跃列表时对页面进行回收:
+        - 匿名页回收: 分配 swap, 将内存也写入文件系统
+        - 文件内存映射页: 将内存中的文件修改写入文件中
+		
+- 申请小块内存用 brk; 申请大块内存或文件映射用 mmap
+- mmap 映射文件, 由 fd 得到 struct file
+    - 调用 ...->do_mmap
+        - 调用 get_unmapped_area 找到一个可以进行映射的 vm_area_struct
+        - 调用 mmap_region 进行映射
+    - get_unmapped_area 
+        - 匿名映射: 找到前一个 vm_area_struct 
+        - 文件映射: 调用 file 中 file_operations 文件的相关操作, 最终也会调用到 get_unmapped_area
+    - mmap_region
+        - 通过 vm_area_struct 判断, 能否基于现有的块扩展(调用 vma_merge)
+        - 若不能, 调用 kmem_cache_alloc 在 slub 中得到一个 vm_area_struct 并进行设置
+        - 若是文件映射: 则调用 file_operations 的 mmap 将 vm_area_struct 的内存操作设置为文件系统对应操作(读写内存就是读写文件系统)
+        - 通过 vma_link 将 vm_area_struct 插入红黑树
+        - 若是文件映射, 调用 __vma_link_file 建立文件到内存的反映射
+- 内存管理不直接分配内存, 在使用时才分配
+- 用户态缺页异常, 触发缺页中断, 调用 do_page_default
+- __do_page_fault 判断中断是否发生在内核
+    - 若发生在内核, 调用 vmalloc_fault, 使用内核页表进行映射
+    - 若不是, 找到对应 vm_area_struct 调用 handle_mm_fault
+    - 得到多级页表地址 pgd 等
+    - pgd 存在 task_struct.mm_struct.pgd 中
+    - 全局页目录项 pgd 在创建进程 task_struct 时创建并初始化, 会调用 pgd_ctor 拷贝内核页表到进程的页表
+- 进程被调度运行时, 通过 switch_mm_irqs_off->load_new_mm_cr3 切换内存上下文
+- cr3 是 cpu 寄存器, 存储进程 pgd 的物理地址(load_new_mm_cr3 加载时通过直接内存映射进行转换)
+- cpu 访问进程虚拟内存时, 从 cr3 得到 pgd 页表, 最后得到进程访问的物理地址
+- 进程地址转换发生在用户态, 缺页时才进入内核态(调用__handle_mm_fault)
+- __handle_mm_fault 调用 pud_alloc, pmd_alloc, handle_pte_fault 分配页表项
+    - 若不存在 pte
+        - 匿名页: 调用 do_anonymous_page 分配物理页 ①
+        - 文件映射: 调用 do_fault ②
+    - 若存在 pte, 调用 do_swap_page 换入内存 ③
+    - ① 为匿名页分配内存
+        - 调用 pte_alloc 分配 pte 页表项
+        - 调用 ...->__alloc_pages_nodemask 分配物理页
+        - mk_pte 页表项指向物理页; set_pte_at 插入页表项
+    - ② 为文件映射分配内存 __do_fault
+        - 以 ext4 为例, 调用 ext4_file_fault->filemap_fault
+        - 文件映射一般有物理页作为缓存 find_get_page 找缓存页
+        - 若有缓存页, 调用函数预读数据到内存
+        - 若无缓存页, 调用 page_cache_read 分配一个, 加入 lru 队列, 调用 readpage 读数据: 调用 kmap_atomic 将物理内存映射到内核临时映射空间, 由内核读取文件, 再调用 kunmap_atomic 解映射
+    - ③ do_swap_page
+        - 先检查对应 swap 有没有缓存页
+        - 没有, 读入 swap 文件(也是调用 readpage) 
+        - 调用 mk_pte; set_pet_at; swap_free(清理 swap)
+- 避免每次都需要经过页表(存再内存中)访问内存
+    - TLB 缓存部分页表项的副本
+	
+- 涉及三块内容:
+    - 内存映射函数 vmalloc, kmap_atomic
+    - 内核态页表存放位置和工作流程
+    - 内核态缺页异常处理
+- 内核态页表, 系统初始化时就创建
+    - swapper_pg_dir 指向内核顶级页目录 pgd
+        - xxx_ident/kernel/fixmap_pgt 分别是直接映射/内核代码/固定映射的 xxx 级页表目录
+    - 创建内核态页表
+        - swapper_pg_dir 指向 init_top_pgt, 是 ELF 文件的全局变量, 因此再内存管理初始化之间就存在
+        - init_top_pgt 先初始化了三项
+            - 第一项指向 level3_ident_pgt (内核代码段的某个虚拟地址) 减去 __START_KERNEL_MAP (内核代码起始虚拟地址) 得到实际物理地址
+            - 第二项也是指向 level3_ident_pgt
+            - 第三项指向 level3_kernel_pgt 内核代码区
+    - 初始化各页表项, 指向下一集目录
+        - 页表覆盖范围较小, 内核代码 512MB, 直接映射区 1GB
+        - 内核态也定义 mm_struct 指向 swapper_pg_dir
+        - 初始化内核态页表,  start_kernel→ setup_arch
+            - load_cr3(swapper_pg_dir) 并刷新 TLB
+            - 调用 init_mem_mapping→kernel_physical_mapping_init, 用 __va 将物理地址映射到虚拟地址, 再创建映射页表项
+            - CPU 在保护模式下访问虚拟地址都必须通过 cr3, 系统只能照做
+            - 在 load_cr3 之前, 通过 early_top_pgt 完成映射
+- vmalloc 和 kmap_atomic
+    - 内核的虚拟地址空间 vmalloc 区域用于映射
+    - kmap_atomic 临时映射
+        - 32 位, 调用 set_pte 通过内核页表临时映射
+        - 64 位, 调用 page_address→lowmem_page_address 进行映射
+- 内核态缺页异常
+    - kmap_atomic 直接创建页表进行映射
+    - vmalloc 只分配内核虚拟地址, 访问时触发缺页中断, 调用 do_page_fault→vmalloc_fault 用于关联内核页表项
+- kmem_cache 和 kmalloc 用于保存内核数据结构, 不会被换出; 而内核 vmalloc 会被换出
