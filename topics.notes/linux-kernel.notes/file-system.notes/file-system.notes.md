@@ -1,0 +1,71 @@
+- 磁盘→盘片→磁道→扇区(每个 512 字节)
+- ext* 定义文件系统的格式
+- inode 与数据块
+    - 硬盘分为大小相同的单元→块 ( block ), 大小 4K, 扇区的整数倍, 大小在格式化时可配置
+    - 因此, 存放文件时不用分配连续的空间
+    - 也因此要为文件建立块索引 + 元数据(名字, 权限, 所属) 信息, 存放于 inode 中
+    - inode 还维护三个时间: i_atime 访问时间; i_ctime 更改 inode 时间; i_mtime 更改文件时间
+    - 文件分为多个块, 每个块的位置存放在 inode 的 i_block 中, 共 15 项
+        - ext2 和 ext3 中, 前 12 项保存块的位置, 若文件较大, 则第十三项指向间接块, 间接块存放剩余数据块的位置; 文件再大, 第 14 项指向两级间接块, 以此类推
+        - 但上述, 大文件需要访问多个块才能读取到数据
+        - ext4 引入 Extents 概念, 可以用于存放连续的数据块
+        - Extents 是树形结构, 每个节点由一个头 ext4_extend_header 来描述节点
+            - 节点有多个项, 对于叶子节点: 每项直接指向硬盘上的连续块的地址; 分支节点: 每项指向下一层节点
+            - 文件不大: inode 可放下一个头 + 4 个数据项, eh_depth = 0 表示数据节点
+            - 文件较大: 除了根节点(存于 inode.i_block 中) , 其他节点都存于一个块中, 4K 能存 340 项, 每项可放 128MB, 总 42.5GB
+- inode 位图与块位图
+    - 要保存数据是, 应放在哪? 全扫一遍效率低
+    - 用一个块保存 inode 位图, 每一位对应一个 inode, 1→被占用; 同样用一个块保存块位图
+    - open 再空文件夹下创建文件: do_sys_open→...→lookup_open 再调用 dir_node→i_op_create(ext4_create) 创建文件夹 inode
+        - 调用 ext4_create→...→__ext4_new_inode 读取 inode 位图, 找到下一个空闲 inode
+        - 同样用块位图找空闲块
+- 文件系统格式
+    - 一个位图只能表示 2^15 个数据块, 即 128MB
+    - 一个 inode 位图 + 一个 block 位图, 称为块组, 用数据结构 ext4_group_desc 表示, 里面包含 inode 位图, block 位图和 inode 列表
+    - 这些块组描述符构成列表, 另外用超级块 ext4_super_block 描述整个文件系统; 第一个块组前 1k 用于启动引导
+    - 文件系统由引导块 + N 个块组组成; 每个块组由: 超级块 + 块组描述符表 + 块位图 + inode 位图 + inode 列表 + 数据块构成
+    - 超级块和块组描述符表都是全局信息; 默认超级块和块组描述符表再灭个租客都有备份; 若开启 sparse_super, 则只在固定块组中备份
+    - 采用 Meta Block Groups 特性, 避免块组表浪费空间, 或限制文件系统的大小
+        - 将块组分成多个组(元块组) 块组描述符表只保存当前元块组中块组的信息, 并在元块组内备份
+- 目录存储格式
+    - 目录也是文件, 也有 inode, inode 指向一个块, 块中保存各个文件信息, ext4_dir_entry 包括文件名和 inode, 默认按列表存
+    - 第一项 "." 当前目录; 第二项 ".." 上一级目录
+    - 可添加索引, 加快文件查找
+        - 需要改变目录块格式, 加入索引树: 用索引项 dx_entry 保存文件名哈希和块的映射, 若该块不是索引, 则里面保存 ext4_dir_enry 列表, 逐项查找
+- 软连接/硬链接的存储
+    - 链接即文件的别名: ln -s 创建软链接; ln 创建硬链接
+    - 硬链接与原始文件共用一个 inode, 但不能跨文件系统
+    - 软链接是一个文件, 有自己的 inode, 该文件内容指向另一个文件, 可跨文件系统
+
+- 多层组件统一完成进行读写文件的任务
+    - 系统调用 sys_open, sys_read 等
+    - 进程维护打开的文件数据结构, 系统维护所有打开的文件数据结构
+    - Linux 提供统一的虚拟文件系统接口; 例如 inode, directory entry, mount, 以及对应操作 inode  operations等, 因此可以同时支持数十种不同的文件系统
+    - vfs 通过设备 I/O 层在通过块设备驱动程序访问硬盘文件系统
+    - 通过缓存层加快块设备读写
+- 通过解析系统调用了解内核架构
+- 挂载文件系统 mount
+    - 注册文件系统 register_filesystem 后才能挂载
+    - 调用链 mount->do_mount->do_new_mount→vfs_kern_mount
+    - 首先创建 struct mount
+        - 其中 mnt_parent 指向父 fs 的 mount; mnt_parentpoint 指向父 fs 的 dentry
+        - 用 dentry 表示目录, 并和目录的 inode 关联
+        - mnt_root 指向当前 fs 根目录的 dentry; 还有 vfsmount 指向挂载树 root 和超级块
+    - 调用 mount_fs 进行挂载
+        - 调用 ext4_fs_type→mount(ext4_mount),  读取超级块到内存
+        - 文件和文件夹都有一个 dentry, 用于与 inode 关联, 每个挂载的文件系统都由一个 mount 描述; 每个打开的文件都由 file 结构描述, 其指向 dentry 和 mount.
+        - 二层文件系统根目录有两个 dentry, 一个表示挂载点, 另一个是上层 fs 的目录.
+- 打开文件 sys_open
+    - 先获取一个未使用的 fd, 其中 task_struct.files.fd_array[] 中每一项指向打开文件的 struct file, 其中 fd 作为下标. 默认 0→stdin, 1→stdout, 2→stderr
+    - 调用 do_sys_open->do_flip_open
+        - 先初始化 nameidata, 解析文件路径名; 接着调用 path_openat
+            - 生成 struct file 结构; 初始化 nameidata, 准备查找
+            - link_path_walk 根据路径名逐层查找
+            - do_last 获取文件 inode, 初始化 file
+        - 查找路径最后一部分对应的 dentry
+            - Linux 通过目录项高速缓存 dentry cache(dentry) 提高效率. 由两个数据结构组成
+                - 哈希表: dentry_hashtable; 引用变为 0 后加入 lru 链表; dentry 没找到则从 slub 分配; 无法分配则从 lru 中获取; 文件删除释放 dentry;
+                - 未使用的 dentry lru 链表; 再次被引用返回哈希表; dentry 过期返回给 slub 分配器
+            - do_last 先从缓存查找 dentry, 若没找到在从文件系统中找并创建 dentry, 再赋给 nameidata 的 path.dentry; 最后调用 vfs_open 真正打开文件
+            - vfs_open 会调用 f_op->open 即 ext4_file_open, 还将文件信息存入 struct file 中.
+        - 许多结构体中都有自己对应的 operation 结构, 方便调用对应的函数进行处理
