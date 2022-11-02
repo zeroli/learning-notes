@@ -39,7 +39,8 @@
   - llvm
   - Python
   - Lua
-
+  - QuickJS
+  - V8
 
 操作系统
 ===
@@ -53,11 +54,13 @@
   - Linux内核完全剖析 - 基于0.12内核
   - Linux内核源代码情景分析(上下册)
   - 深入Linux内核架构
+  - 深入理解Linux内核(第3版)
+  - 奔跑吧-Linux内核，卷1：基础架构
 
 - 开源项目
   - xv6
   - Linux-0.12
-  - Linux-2.6
+  - Linux-2.6.x
   - Android
 
 数据库
@@ -65,10 +68,15 @@
 - 参考书目
   - 高性能MySQL
   - MySQL是怎么运行的 - 从根儿上理解MySQL
+  - MySQL技术内幕 - InnoDB存储引擎
+  - MariaDB原理与实现
+
 - 开源项目
   - leveldb
   - redis
-
+  - MySQL/MariaDB
+  - Sqlite
+  - RocksDB
 
 C/C++
 ===
@@ -87,6 +95,7 @@ Java
   - 深入剖析Java虚拟机 - 源码剖析与实例详解
   - 深入理解Java虚拟机 - JVM高级特性与最佳实践 （第3版）
   -
+
 Python
 ===
 - 参考书目
@@ -97,6 +106,7 @@ Python
 Go
 ===
 - 参考书目
+  - Go语言设计与实现
 
 Javascript
 ===
@@ -110,6 +120,7 @@ Javascript
   - libuv
   - memcached
   -
+
 网络编程
 ===
 - 参考书目
