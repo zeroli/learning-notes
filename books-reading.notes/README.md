@@ -36,6 +36,7 @@ Javascript
 计算机组成与架构
 ===
 - Modern Computer Architecture and Organization, by Jim Ledin ==[in progress]==
+- Beginning x64 Assembly Programming - From Novice to AVX Professional, by Jo Van Hoey
 
 
 编译器/解析器
@@ -56,8 +57,9 @@ Javascript
 - 现代编译原理-C语言描述,  by Andrew W. Appel
 - Introduction to Compilers and Language Design by Prof. Douglas Thain ==[in progress]==
 - Build you own programming language - A programmer's guide to designing compilers, interpreters, and DSL for solving modern computing programs, by Clinton L. Jeffery
-- Go 语言的设计与实现, by
+- Go 语言的设计与实现, by 左书淇
 - 深入解析Java编译器源码剖析与实例详解, by 马智
+- Python源码剖析, by 陈儒 ==[Done]==
 
 操作系统
 ===
@@ -72,7 +74,7 @@ Javascript
 - System Software - An Introduction to systems programming, by Leland L. Beck
 - Unix/Linux 编程实战教程, by Bruce Molay
 - Write great code - Volume 1 - Understanding the machine, by Randall Hyde
-
+- 实战Netty (Netty  in Action中文)
 
 数据结构与算法
 ===

@@ -84,7 +84,7 @@
 | msgpack-c | | |
 | xv6 | | |
 | luabind | | |
-| luabridge | | |
+| luabridge | | 完成v-0.1版本的代码学习和笔记|
 | mysql | | 学习mysql-5.0.96|
 | v8-0.4.9.3 | | |
 | v8-1.0.3.6 | | |
