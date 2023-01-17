@@ -106,3 +106,68 @@ XML、JSON 更注重数据结构化，关注人类可读性和语义表达能力
 ProtoBuf 的应用场景更为明确，XML、JSON 的应用场景更为丰富。
 
 ![](images/2022-02-14-17-10-55.png)
+
+* 以下是ZigZag编码详细的解释和自己的理解
+```c++
+// ZigZag Transform:  Encodes signed integers so that they can be
+// effectively used with varint encoding.
+//
+// varint operates on unsigned integers, encoding smaller numbers into
+// fewer bytes.  If you try to use it on a signed integer, it will treat
+// this number as a very large unsigned integer, which means that even
+// small signed numbers like -1 will take the maximum number of bytes
+// (10) to encode.  ZigZagEncode() maps signed integers to unsigned
+// in such a way that those with a small absolute value will have smaller
+// encoded values, making them appropriate for encoding using varint.
+//
+//       int32 ->     uint32
+// -------------------------
+//           0 ->          0
+//          -1 ->          1
+//           1 ->          2
+//          -2 ->          3
+//         ... ->        ...
+//  2147483647 -> 4294967294
+// -2147483648 -> 4294967295
+//
+//        >> encode >>
+//        << decode <<
+
+/*
+编码转换
+  y = (x >= 0) ? (2 * x) : (- (2 * x) - 1)
+  如果是正数，则为 2 * x
+  如果是负数，则为 - (2 * x) - 1
+  如何求解: -x - 1 ?
+  一个数的相反数可以表示为: -x = ~x + 1 ===> -x - 1 = ~x
+  所以如果输入为负数，编码为~ (2 * x)，2 * x的反码
+  如何求解一个数的反码？每一位与1异或，0异或1就是1，1异或1就是0
+  都变成了它对应的相反数
+  如果是负数，最高位为1，1xxx >> 31，操作的结果就是1111111...1，也即-1
+  注意负数默认右移为数值右移
+  如果是正数，最高位为0，0xxx >> 31，结果还是0，与全0进行异或，不变
+  因此要从x编码到y，cover正数和负数，就是(x << 1) ^ (x >> 31)
+  左移1位就是与2相乘
+  y = (x >= 0) ? k : ~k，其中k = 2 * x
+  一个是判断最高位是否为1 (正负性)
+*/
+inline uint32 WireFormatLite::ZigZagEncode32(int32 n) {
+  // Note:  the right-shift must be arithmetic
+  return (n << 1) ^ (n >> 31);
+}
+
+/*
+  解码过程类似:
+  x = (y & 1) ? (- (y + 1) / 2) : (y / 2)
+     = (y & 1) ? (- (y / 2) - 1) : (y / 2)
+     = (y & 1) ? (- (y >> 1) - 1) : (y >> 1)
+  这里仍然可以提取出: -k - 1 = ~k
+     = (y & 1) ? (~k) : (k)
+  所以要么是~k，要么是k
+  k的反码就是k与全1进行异或
+  一个是判断最低位是否为1 (奇偶性)
+*/
+inline int32 WireFormatLite::ZigZagDecode32(uint32 n) {
+  return (n >> 1) ^ -static_cast<int32>(n & 1);
+}
+```
