@@ -9,18 +9,28 @@
 - Hands-On Mathematics for Deep Learning, by Jay Dawani
 - Foundation Mathematics for Computer Science - A Visual Approach,  by John Vince  ==[In progress]==
 - 线性代数(第9版), by Steven J, Leon ==[in progress]==
+- 微积分与解析几何
 
 C/C++
 ===
-- More C++ Idioms
+- More C++ Idioms ==[Done]==
 - C++模板元编程, by David Abrahams, Aleksey Gurtovoy ==[in progress]==
 - Exceptional c++中文版, by Herb Sutter ==[Done]==
 - C++ concurrency in action, 2nd  ==[in progress]==
-
+- Rainer Grimm - Concurrency with Modern C++ (2019) ==[in progress]==
+- C++ Templates_ The Complete Guide, David Vandevoorde, Nicolai M. Josuttis, Douglas Gregor  ==[in progress]==
+- Marius Bancila - Template Metaprogramming with C++ ==[in progress]==
+- cpp-lambda-story ==[in progress]==
+- Andrist, Björn_ Garney, Ben_ Sehr, Viktor - C++ high performance_ boost and optimize the performance of your C++ 17 code ==[in progress]==
+- Björn Andrist, Viktor Sehr - C++ High Performance-Packt Publishing (2020)
+- Klaus Iglberger - C++ Software Design_ Design Principles and Patterns for High-Quality Software ==[in progress]==
+- C++17, the complete guide(完全指南)
+- C++20, the complete guide
+- James Reinders - Intel Threading Building Blocks_ Outfitting C++ for Multi-Core Processor Parallelism ==[in progress]==
 
 JAVA
 ===
-- Java并发编程实战, by Brian Goetz, etc ==[in progress]==
+- Java并发编程实战, by Brian Goetz, etc ==[Done]==
 
 Javascript
 ===
@@ -35,9 +45,10 @@ Javascript
 
 计算机组成与架构
 ===
-- Modern Computer Architecture and Organization, by Jim Ledin ==[in progress]==
-- Beginning x64 Assembly Programming - From Novice to AVX Professional, by Jo Van Hoey
-
+- Modern Computer Architecture and Organization, by Jim Ledin ==[Done]==
+- Beginning x64 Assembly Programming - From Novice to AVX Professional, by Jo Van Hoey ==[in progress]==
+- The elements of computing systems, Noam Nisan ==[in progress]==
+- Computer Organization and Design - interafce & design - RISC-V
 
 编译器/解析器
 ===
@@ -60,6 +71,12 @@ Javascript
 - Go 语言的设计与实现, by 左书淇
 - 深入解析Java编译器源码剖析与实例详解, by 马智
 - Python源码剖析, by 陈儒 ==[Done]==
+- CPython Internals: Your guide to python 3 interpreter, Anthony Shaw ==[in progress]==
+- Inside the Python virtual machine, Obi Lke-Nwosu ==[in progress]==
+- LLVM编译器实战教程 ==[in progress]==
+- 自己动手构造编译系统++编译、汇编与链接
+- 自己动手实现Lua：虚拟机、编译器和标准库_张秀宏
+- 自己动手写Java 虚拟机
 
 操作系统
 ===
