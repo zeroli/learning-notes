@@ -9,5 +9,7 @@
 | AMD HIP OpenCL runtime | AMD GPU OpenCL实现 | C++ | | |
 | oneDNN-0.1 | deep learning framework | C++/xbyak-JIT | 已阅读到xbyak实现部分，手动生成asm代码，然后JIT编译成BINARY执行。这部分需要等到看完那边汇编的书再来研究 |
 | caffe | deep learning framework | C++ | 03/20-基本框架已经阅读完。重点需要学习各个layer的实现，纯CUDA实现，以及对应的CUDNN实现 |
+| eigen | linear algebra, math lib | C++ | |
+
 
 
