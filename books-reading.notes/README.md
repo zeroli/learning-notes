@@ -6,7 +6,6 @@
 - Linear Algebra, by David Cherney, Tom Denton, Rohit Thomas and Andrew Waldron
 - LINEAR ALGEBRA, by Jim Hefferon, 3rd
 - Mathematics for Computer Science, by Eric Lehman, F Thomson Leighton, Albert R Meyer
-- Hands-On Mathematics for Deep Learning, by Jay Dawani
 - Foundation Mathematics for Computer Science - A Visual Approach,  by John Vince  ==[In progress]==
 - 线性代数(第9版), by Steven J, Leon ==[in progress]==
 - 微积分与解析几何
@@ -16,13 +15,14 @@ C/C++
 - More C++ Idioms ==[Done]==
 - C++模板元编程, by David Abrahams, Aleksey Gurtovoy ==[in progress]==
 - Exceptional c++中文版, by Herb Sutter ==[Done]==
-- C++ concurrency in action, 2nd  ==[in progress]==
-- Rainer Grimm - Concurrency with Modern C++ (2019) ==[in progress]==
+- C++ concurrency in action, 2nd  ==[Done]==
+- Rainer Grimm - Concurrency with Modern C++ (2019) ==[Done]==
 - C++ Templates_ The Complete Guide, David Vandevoorde, Nicolai M. Josuttis, Douglas Gregor  ==[in progress]==
-- Marius Bancila - Template Metaprogramming with C++ ==[in progress]==
+- Marius Bancila - Template Metaprogramming with C++ ==[Done]==
+    * 这本书需要重新再复习一遍
 - cpp-lambda-story ==[in progress]==
-- Andrist, Björn_ Garney, Ben_ Sehr, Viktor - C++ high performance_ boost and optimize the performance of your C++ 17 code ==[in progress]==
-- Björn Andrist, Viktor Sehr - C++ High Performance-Packt Publishing (2020)
+- Andrist, Björn_ Garney, Ben_ Sehr, Viktor - C++ high performance_ boost and optimize the performance of your C++ 17 code ==[Done]==
+- Björn Andrist, Viktor Sehr - C++ High Performance-Packt Publishing (2020) ==[in progress]==
 - Klaus Iglberger - C++ Software Design_ Design Principles and Patterns for High-Quality Software ==[in progress]==
 - C++17, the complete guide(完全指南)
 - C++20, the complete guide
@@ -47,16 +47,16 @@ Javascript
 ===
 - Modern Computer Architecture and Organization, by Jim Ledin ==[Done]==
 - Beginning x64 Assembly Programming - From Novice to AVX Professional, by Jo Van Hoey ==[in progress]==
-- The elements of computing systems, Noam Nisan ==[in progress]==
-- Computer Organization and Design - interafce & design - RISC-V
+- The elements of computing systems, Noam Nisan ==[Done]==
+- Computer Organization and Design - interface & design - RISC-V
 
 编译器/解析器
 ===
-- Crafting intepreters, by Robert Nystrom ==[in progress]==
+- Crafting intepreters, by Robert Nystrom ==[Done]==
 - A practical approach to compiler construction, by Watson, Des ==[in progress]==
 - Introduction to Compiler Design, by Torben Ægidius Mogensen
 - Compiler design in C, by Allen I. Holub ==[in progress]==
-- Introduction to compiler design - An object-oriented approach using Java, by John I. Moore, Jr. ==[in progress]==
+- Introduction to compiler design - An object-oriented approach using Java, by John I. Moore, Jr. ==[Done]==
 - Writing Compilers and interpreters - A software engineering approach, by Ronald Mak ==[in progress]==
 - 自制编译器, by 青木峰郎
 - 自制编程语言, by 前桥和弥
@@ -77,6 +77,10 @@ Javascript
 - 自己动手构造编译系统++编译、汇编与链接
 - 自己动手实现Lua：虚拟机、编译器和标准库_张秀宏
 - 自己动手写Java 虚拟机
+- LLVM cookbook
+    * on-going
+- Learn LLVM-12
+    * on-going
 
 操作系统
 ===

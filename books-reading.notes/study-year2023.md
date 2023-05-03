@@ -12,20 +12,29 @@
     * chapter1 @ 03/30
     
 - Harrison Kinsley_ Daniel Kukieła - Neural Networks from Scratch in Python
+    * on-going, backpropagation
 
 - Andrew W. Trask - Grokking Deep Learning
 - Edward Raff - Inside Deep Learning_ Math, Algorithms, Models
 - 神经网络和深度学习neural networks and deep-learning-中文
     * online book中文版
 
+- Luis Serrano - Grokking Machine Learning-Manning Publications (2021)
+    * on-going, 看上去不错
+
+- John D. Kelleher - Deep Learning-Mit Press (2019)
+    * on-going, 比较概述，可以当作科普读物来阅读
+
 - Dr. Pablo Rivas - Deep Learning for Beginners
 - dive into deep learning, 李沐等
-- Aurélien Géron - Hands-On Machine Learning with Scikit-Learn, Keras, and TensorFlow_ Concepts, Tools, and Techniques to Build Intelligent Systems-O'Reilly Media (2022)
+- Aurélien Géron - Hands-On Machine Learning with Scikit-Learn, Keras, and TensorFlow_ Concepts, Tools, and Techniques to Build Intelligent Systems (2022)
 
 - Jeremy Howard_ Sylvain Gugger - Deep Learning for Coders with fastai and PyTorch
 - Jay Dawani - Hands-On Mathematics for Deep Learning
+    * on-going
+
 - 2019BurkovTheHundred-pageMachineLearning
-    * in progress
+    * 读完了一些章节。这本书只有160页不到，覆盖内容很广，更适合在系统的掌握大部分ML内容之后阅读。    
 
 - Andrew Glassner - Deep Learning_ A Visual Approach-No Starch Press (2021)
 - Ronald T. Kneusel - Math for Deep Learning_ What You Need to Know to Understand Neural Networks-No Starch Press (2021)
@@ -38,7 +47,7 @@
 - Savaş Yıldırım, Meysam Asgari-Chenaghlu - Mastering Transformers_ Build state-of-the-art models from scratch with advanced natural language processing techniques (2021)
 - Giuseppe Bonaccorso - Mastering machine learning algorithms  (2020)
 - Roshani Raut, Pranav D Pathak, Sachin R Sakhare, Sonali Patil - Generative Adversarial Networks and Deep Learning_ Theory and Applications (2023)
-- Luis Serrano - Grokking Machine Learning-Manning Publications (2021)
+
 - Jeff Prosise - Applied Machine Learning and AI for Engineers_ Solve Business Problems That Can't Be Solved Algorithmically (Release 1) (2022)
 
 - Andriy Burkov - Machine Learning Engineering-True Positive Inc. (2020)
