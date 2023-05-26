@@ -31,7 +31,7 @@
 | node.js | | |
 | oneDNN | | |
 | cuda.taskflow | | **==DONE==** |
-| eigen || |
+| eigen || **==IN PROGRESS==** |
 | tensorflow-2.5 | | **==IN PROGRESS==** |
 | oneDNN | | |
 | abseil-cpp | | |
@@ -108,6 +108,8 @@
 | nfs | | **** |
 | cgdb | | **** |
 | tmux | | *** |
+| TinyXML2| | |
+| spdlog | | |
 
 ## 分布式系统学习
 | 分布式系统 | 开源软件 | 描述 |
