@@ -140,3 +140,5 @@
 | -- | berkeleyDB | |
 | -- | monetDB | column-based RDBMS |
 | -- | C-store | column-based RDBMS |
+| -- | clickhouse | column-based RDBMS |
+| -- | doris | column-based RDBMS |
