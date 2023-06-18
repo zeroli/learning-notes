@@ -7,6 +7,7 @@
     - 正阅读 cuda实现部分 | 针对tbb/openmp/cuda有不同的实现代码，外围接口一致，cuda采用CUB库来实现
 * thrust-1.0.0
     - 重新阅读，学习CUDA对基本并行算法的实现， reduce/scan/sort
+    - done
 
 * AMD HIP API
     - GPU driver/runtime 实现
@@ -24,8 +25,10 @@
 
 * eigen
     - linear algebra, math lib
-    
+    - 已初步阅读eigen-2.x版本（可以找到的最早的版本）
+
 * pybind11
+    - 已初步阅读pybind最初版本，需要进一步理解
 
 * CUB
 
@@ -39,15 +42,19 @@
 
 * cudpp
 
-* nv.stdexec
-
 * cutlass
 
 * moderngpu
 
 * stdgpu
 
+* nv.stdexec
+    - C++20，有点看不太懂，需要编译
+
 * folly-0.22
+
+* tcmalloc
+    - done
 
 
 

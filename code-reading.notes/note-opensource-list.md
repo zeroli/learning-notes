@@ -16,7 +16,6 @@
 - zeromq: https://github.com/zeromq/libzmq (消息中间件C++)
 - getopt: https://github.com/r-lyeh-archived/getopt
 - memory: https://github.com/foonathan/memory.git
-- memory-allocators: https://github.com/mtrebi/memory-allocators.git [done]
 - tgc: https://github.com/orangeduck/tgc.git
 - mimalloc: https://github.com/microsoft/mimalloc.git
 - tinyvm: https://github.com/jakogut/tinyvm.git
@@ -29,21 +28,21 @@
 | cpc | 300行的C编译器 |  |
 | protobuf-2.6.0 | | **==DONE==** |
 | node.js | | |
-| oneDNN | | |
 | cuda.taskflow | | **==DONE==** |
 | eigen || **==IN PROGRESS==** |
 | tensorflow-2.5 | | **==IN PROGRESS==** |
+| pytorch | | |
 | oneDNN | | |
-| abseil-cpp | | |
+| abseil-cpp | | **==IN PROGRESS==** |
 | sgi-stl | | |
 | asio | | |
 | hotspot-jdk6 | | |
 | sogo.workflow | | |
 | cpython | | |
-| folly | | |
+| folly | | **==IN PROGRESS==** |
 | rpclib | | **==DONE==** |
 | disruptor-cpp | | |
-| async++ | | |
+| async++ | | **==DONE==** |
 | boost.interprocess | | |
 | fmtlib | | |
 | boost.lockfree | | **==DONE==** |
@@ -91,7 +90,8 @@
 | Android | | |
 | ptmalloc | | |
 | mimalloc | microsoft memory allocator | |
-| tcmaloc | google thread-cache memory allocator |  |
+| tcmalloc | google thread-cache memory allocator |  **==DONE==** |
+| jemalloc | | |
 | fossil | | |
 | TinySTL | | |
 | spdlog | | |
@@ -109,7 +109,12 @@
 | cgdb | | **** |
 | tmux | | *** |
 | TinyXML2| | |
-| spdlog | | |
+| musl | | *in progress |
+| llvm-1.0 | | |
+| llvm-2.6.0 | | |
+| range-v3 | | |
+| libcxx | | |
+| pybind11 | | |
 
 ## 分布式系统学习
 | 分布式系统 | 开源软件 | 描述 |
@@ -142,3 +147,4 @@
 | -- | C-store | column-based RDBMS |
 | -- | clickhouse | column-based RDBMS |
 | -- | doris | column-based RDBMS |
+| -- | duckDB | column-based RDBMS |
