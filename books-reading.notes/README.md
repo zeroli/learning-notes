@@ -53,6 +53,7 @@ Javascript
 编译器/解析器
 ===
 - Crafting intepreters, by Robert Nystrom ==[Done]==
+    - 自己动手实现解释器，中文翻译版
 - A practical approach to compiler construction, by Watson, Des ==[in progress]==
 - Introduction to Compiler Design, by Torben Ægidius Mogensen
 - Compiler design in C, by Allen I. Holub ==[in progress]==
@@ -71,9 +72,9 @@ Javascript
 - Go 语言的设计与实现, by 左书淇
 - 深入解析Java编译器源码剖析与实例详解, by 马智
 - Python源码剖析, by 陈儒 ==[Done]==
-- CPython Internals: Your guide to python 3 interpreter, Anthony Shaw ==[in progress]==
-- Inside the Python virtual machine, Obi Lke-Nwosu ==[in progress]==
-- LLVM编译器实战教程 ==[in progress]==
+- CPython Internals: Your guide to python 3 interpreter, Anthony Shaw ==[Done]==
+- Inside the Python virtual machine, Obi Lke-Nwosu ==[Done]==
+- LLVM编译器实战教程 ==[Done]==
 - 自己动手构造编译系统++编译、汇编与链接
 - 自己动手实现Lua：虚拟机、编译器和标准库_张秀宏
 - 自己动手写Java 虚拟机
@@ -81,6 +82,7 @@ Javascript
     * on-going
 - Learn LLVM-12
     * on-going
+- LLVM Techniques, Tips, and Best Practices Clang and Middle-End Libraries
 
 操作系统
 ===
