@@ -83,6 +83,11 @@ Javascript
 - Learn LLVM-12
     * on-going
 - LLVM Techniques, Tips, and Best Practices Clang and Middle-End Libraries
+- write an interpeter in go
+- write a compiler in go
+- build an optimizing compiler
+- 高级编译器设计与实现
+- essential of compilation
 
 操作系统
 ===
