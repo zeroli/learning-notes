@@ -55,12 +55,12 @@ Javascript
 - Crafting intepreters, by Robert Nystrom ==[Done]==
     - 自己动手实现解释器，中文翻译版
 - A practical approach to compiler construction, by Watson, Des ==[in progress]==
-- Introduction to Compiler Design, by Torben Ægidius Mogensen
+- Introduction to Compiler Design, by Torben Ægidius Mogensen ==[not fit right now]==
 - Compiler design in C, by Allen I. Holub ==[in progress]==
 - Introduction to compiler design - An object-oriented approach using Java, by John I. Moore, Jr. ==[Done]==
 - Writing Compilers and interpreters - A software engineering approach, by Ronald Mak ==[in progress]==
 - 自制编译器, by 青木峰郎
-- 自制编程语言, by 前桥和弥
+- 自制编程语言, by 前桥和弥 ==[in progress]==
 - 两周自制脚本语言, by 千叶滋 ==[in progress]==
 - 编译器构造(crafting a compiler), by Charles N. Fischer, Ronald K. cytron
 - 编译器设计(Engineering a compiler), by Keith D. Cooper, Linda Torczon
@@ -75,9 +75,10 @@ Javascript
 - CPython Internals: Your guide to python 3 interpreter, Anthony Shaw ==[Done]==
 - Inside the Python virtual machine, Obi Lke-Nwosu ==[Done]==
 - LLVM编译器实战教程 ==[Done]==
-- 自己动手构造编译系统++编译、汇编与链接
+- 自己动手构造编译系统++编译、汇编与链接 ==[in progress]==
 - 自己动手实现Lua：虚拟机、编译器和标准库_张秀宏
 - 自己动手写Java 虚拟机
+- 自制编程语言-C语言描述 ==[in progress]==
 - LLVM cookbook
     * on-going
 - Learn LLVM-12
@@ -87,7 +88,7 @@ Javascript
 - write a compiler in go
 - build an optimizing compiler
 - 高级编译器设计与实现
-- essential of compilation
+- essential of compilation ==[not fit right now]==
 
 操作系统
 ===
