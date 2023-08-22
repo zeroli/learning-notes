@@ -24,6 +24,7 @@ C/C++
 - Andrist, Björn_ Garney, Ben_ Sehr, Viktor - C++ high performance_ boost and optimize the performance of your C++ 17 code ==[Done]==
 - Björn Andrist, Viktor Sehr - C++ High Performance-Packt Publishing (2020) ==[in progress]==
 - Klaus Iglberger - C++ Software Design_ Design Principles and Patterns for High-Quality Software ==[in progress]==
+- Dmitri Nesteruk - Design Patterns in Modern C++- Reusable Approaches for Object-Oriented Software Design-Apress (2018) ==[in progress]==
 - C++17, the complete guide(完全指南)
 - C++20, the complete guide
 - James Reinders - Intel Threading Building Blocks_ Outfitting C++ for Multi-Core Processor Parallelism ==[in progress]==
@@ -71,6 +72,7 @@ Javascript
 - Build you own programming language - A programmer's guide to designing compilers, interpreters, and DSL for solving modern computing programs, by Clinton L. Jeffery
 - Go 语言的设计与实现, by 左书淇
 - 深入解析Java编译器源码剖析与实例详解, by 马智
+- 揭秘Java虚拟机 ==[in progress]==
 - Python源码剖析, by 陈儒 ==[Done]==
 - CPython Internals: Your guide to python 3 interpreter, Anthony Shaw ==[Done]==
 - Inside the Python virtual machine, Obi Lke-Nwosu ==[Done]==
@@ -78,6 +80,7 @@ Javascript
 - 自己动手构造编译系统++编译、汇编与链接 ==[in progress]==
 - 自己动手实现Lua：虚拟机、编译器和标准库_张秀宏
 - 自己动手写Java 虚拟机
+- 自己动手写Python虚拟机 ==[in progress]==
 - 自制编程语言-C语言描述 ==[in progress]==
 - LLVM cookbook
     * on-going
@@ -97,6 +100,8 @@ Javascript
 - Linux内核源代码情景分析, by 毛德操  ==[in progress]==
 - Linux内核完全剖析-基于0.12内核, by 赵炯 ==[in progress]==
 - 你管这破玩意叫操作系统(linux-0.11) ==[Done]==
+- 操作系统真象还原
+- Linux操作系统设计艺术
 
 系统编程
 ===
