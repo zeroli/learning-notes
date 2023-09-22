@@ -24,14 +24,16 @@ C/C++
 - Andrist, Björn_ Garney, Ben_ Sehr, Viktor - C++ high performance_ boost and optimize the performance of your C++ 17 code ==[Done]==
 - Björn Andrist, Viktor Sehr - C++ High Performance-Packt Publishing (2020) ==[in progress]==
 - Klaus Iglberger - C++ Software Design_ Design Principles and Patterns for High-Quality Software ==[in progress]==
-- Dmitri Nesteruk - Design Patterns in Modern C++- Reusable Approaches for Object-Oriented Software Design-Apress (2018) ==[in progress]==
+- Dmitri Nesteruk - Design Patterns in Modern C++- Reusable Approaches for Object-Oriented Software Design-Apress (2018) ==[Done]==
 - C++17, the complete guide(完全指南)
 - C++20, the complete guide
 - James Reinders - Intel Threading Building Blocks_ Outfitting C++ for Multi-Core Processor Parallelism ==[in progress]==
 
+
 JAVA
 ===
 - Java并发编程实战, by Brian Goetz, etc ==[Done]==
+
 
 Javascript
 ===
@@ -72,7 +74,7 @@ Javascript
 - Build you own programming language - A programmer's guide to designing compilers, interpreters, and DSL for solving modern computing programs, by Clinton L. Jeffery
 - Go 语言的设计与实现, by 左书淇
 - 深入解析Java编译器源码剖析与实例详解, by 马智
-- 揭秘Java虚拟机 ==[in progress]==
+- 揭秘Java虚拟机(JVM设计原理于实现), by 彭亚飞 ==[in progress]==
 - Python源码剖析, by 陈儒 ==[Done]==
 - CPython Internals: Your guide to python 3 interpreter, Anthony Shaw ==[Done]==
 - Inside the Python virtual machine, Obi Lke-Nwosu ==[Done]==
