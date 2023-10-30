@@ -18,7 +18,6 @@
 - memory: https://github.com/foonathan/memory.git
 - tgc: https://github.com/orangeduck/tgc.git
 - mimalloc: https://github.com/microsoft/mimalloc.git
-- tinyvm: https://github.com/jakogut/tinyvm.git
 - loki:
 - libcuckoo: https://github.com/efficient/libcuckoo.git
 - musl: https://github.com/bminor/musl.git (lightweight c runtime library)
@@ -38,12 +37,13 @@
 | asio | | |
 | hotspot-jdk8 | | **==IN PROGRESS==** |
 | sogo.workflow | | |
-| cpython | | |
+| cpython | | **==IN PROGRESS==** |
 | folly | | **==IN PROGRESS==** |
 | rpclib | | **==DONE==** |
 | disruptor-cpp | | |
 | async++ | | **==DONE==** |
-| boost.interprocess | | **==JUST START==** |
+| boost.interprocess | | **==DONE==** |
+| boost.archive | | **==DONE==** |
 | fmtlib | | |
 | boost.lockfree | | **==DONE==** |
 | chrome-v2.2  | |  |
@@ -55,11 +55,10 @@
 | rocksdb | | | 
 | zeromq.libzmq | | |
 | libstd++.v3 | | |
-| tinyexpr | | |
+| tinyexpr | | **==DONE==** |
 | libevent | | **==IN PROGRESS==** |
 | libuv | | |
 | libev | | |
-| subc | | |
 | redis-1.3.7 | | **==DONE==** |
 | redis-3.0 | | |
 | glibc-2.23 | | |
@@ -72,13 +71,11 @@
 | sqlite | | |
 | grpc | | |
 | cmockery | | |
-| ucc | | **==IN PROGRESS==** |
 | lua | | |
 | cJSON | | |
 | amadillo-7.7 | | |
 | platform-bionic | | |
 | thrust | | **TODO**|
-| jemalloc | | |
 | memcached | K-V in-memory 缓存| DONE |
 | gcc-1.42 | | |
 | msgpack-c | | |
@@ -98,10 +95,14 @@
 | spdlog | | |
 | easyLogging | | |
 | cpp-netlib | | |
+| msgpack | | |
 | open-JDK | | |
 | 9cc  | | |
-| msgpack | | |
+| chibicc | | **==IN PROGRESS==** |
+| subc | | **==IN PROGRESS==** |
 | tinycc | | |
+| pcc | | |
+| ucc | | **==IN PROGRESS==** |
 | googletest | | |
 | clang | | |
 | AliSQL | | |
@@ -110,13 +111,14 @@
 | cgdb | | **** |
 | tmux | | *** |
 | TinyXML2| | |
-| musl | | *in progress |
-| llvm-1.0 | | *in progress |
-| llvm-2.6.0 | | |
-| llvm-15.x | | |
+| musl | | **==IN PROGRESS==** |
+| llvm-1.0 | | **==IN PROGRESS==** |
+| llvm-2.6.0 | | **==IN PROGRESS==** |
+| llvm-17.x | | |
 | range-v3 | | |
 | libcxx | | |
 | pybind11 | | |
+| tinyvm | https://github.com/jakogut/tinyvm.git | **==DONE==** |
 
 ## 分布式系统学习
 | 分布式系统 | 开源软件 | 描述 |

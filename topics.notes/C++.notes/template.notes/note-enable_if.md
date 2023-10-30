@@ -28,6 +28,69 @@ int main()
     // Not int
 }
 ```
+- 这样也可以work
+```
+struct Foo {
+    // SFINAE 在函数模板默认参数中
+    template < typename T
+        , typename std::enable_if < !std::is_integral<T>::value>::type* = nullptr
+               >
+    void f(const T& value)
+    {
+        std::cout << "Not int" << std::endl;
+    }
+
+    template<typename T
+        , typename std::enable_if<std::is_integral<T>::value>::type* = nullptr
+        >             
+    void f(const T& value)
+    {
+        std::cout << "Int" << std::endl;
+    }
+
+    // SFINAE 在函数返回值类型中
+    template < typename T>
+    typename std::enable_if < !std::is_integral<T>::value>::type
+     f2(const T& value)
+    {
+        std::cout << "Not int" << std::endl;
+    }
+
+    template < typename T>
+    typename std::enable_if < std::is_integral<T>::value>::type
+     f2(const T& value)  
+    {
+        std::cout << "Int" << std::endl;
+    }
+
+    // SFINAE 在函数默认参数中
+    template < typename T>
+    void f3(const T& value, typename std::enable_if<!std::is_integral<T>::value>::type* = nullptr)
+    {
+        std::cout << "Not int" << std::endl;
+    }
+
+    template < typename T>
+    void f3(const T& value, typename std::enable_if<std::is_integral<T>::value>::type* = nullptr)
+    {
+        std::cout << "Int" << std::endl;
+    }
+    
+    /*  ==> f4不能定义为overload，compiler error
+    template < typename T, typename = typename std::enable_if<!std::is_integral<T>::value>::type>
+    void f4(const T& value)
+    {
+        std::cout << "Not int" << std::endl;
+    }
+
+    template < typename T, typename = typename std::enable_if<std::is_integral<T>::value>::type>
+    void f4(const T& value)
+    {
+        std::cout << "Int" << std::endl;
+    }
+    */ 
+};
+```
 
 有问题的enable_if用法：
 ```c++
@@ -53,7 +116,7 @@ public:
 Default template arguments are not part of the signature of a template (so both definitions try to define the same template twice).
 - Their parameter types are part of the signature.
   - 需要定义不同的模板参数，它根据已知的模板参数来进行判断是否可以导致整个函数被实例化存在；
-- `SFNAE`在这里适用；
+- `SFINAE`在这里适用；
 ```c++
 template <class T>
 class check
